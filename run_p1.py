@@ -11,6 +11,13 @@ rc('font', **font)
 
 
 #test to run
+def gen_data(data_dir = "data"):
+    game_gen = data_gen(game=randomwalk(num_states=7), num_sets=100, trainset_size=10)
+    game_gen.generate_data()
+    game_gen.save_data(data_dir=data_dir)
+    return None
+
+
 def run_tdSimulator(alpha=0.01, decay=0.9995, lamb=0.0, init_w=0.5, maxepisode=100000, epsilon=1e-15):
     tdSimulator = tdLearner_from_simulator(alpha=alpha, decay=decay, lamb=lamb, init_w=init_w)
     print "initial w is:/n", tdSimulator.w
@@ -225,16 +232,10 @@ if __name__ == '__main__':
     
     data_dir = "data"
     results_dir = "results"
+    generate_new_data = False #change this to True if new data is needed
 
     #generate data from simulation
-    #game = data_gen(game=randomwalk(num_states=7), num_sets=100, trainset_size=10)
-    #game.generate_data()
-    #game.save_data(data_dir=data_dir)
-
-    #run some tests
-    #tests()
-
-    
+    if generate_new_data: gen_data(data_dir)
 
 
     #experiment 1
