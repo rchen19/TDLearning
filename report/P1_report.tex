@@ -1,5 +1,6 @@
 \documentclass[10pt]{article}
 \usepackage{listings}
+\usepackage{float}
 %\usepackage{svg}
 \usepackage{algorithm}
 \usepackage{algorithmic}
@@ -170,9 +171,7 @@ The general algorithm is shown below:\par
 \end{algorithmic}
 \end{algorithm}
 
-Again this algorithm is then run on all 100 training sets, and for each training set, a root mean square error (RMSE) is calculated, then averaged over 100 training sets to obtain the average RMSE. This procedure is performed with a range of $\lambda$ and $\alpha$ value combinations, and compared (\textbf{Fig} \ref{fig:fig4}).\par
-
-The lowest average RMSE achieved at different $\lambda$ is then plotted and compared (\textbf{Fig} \ref{fig:fig5}).
+Again this algorithm is then run on all 100 training sets, and for each training set, a root mean square error (RMSE) is calculated, then averaged over 100 training sets to obtain the average RMSE. This procedure is performed with a range of $\lambda$ and $\alpha$ value combinations, and compared (\textbf{Fig} \ref{fig:fig4}). The lowest average RMSE achieved at different $\lambda$ is then plotted and compared (\textbf{Fig} \ref{fig:fig5}).
 
 %%%%%%%%%%%%%%%%%%%figure here v
 
@@ -184,12 +183,12 @@ The lowest average RMSE achieved at different $\lambda$ is then plotted and comp
 The results from the two experiments described above are presented in \textbf{Fig} \ref{fig:fig3}, \ref{fig:fig4}, and \ref{fig:fig5}
 
 
-
 %%%%%%
 \subsection{Experiment 1} \label{results1}
+The shape of the curve in \textbf{Fig} \ref{fig:fig3} generated from experiment 1 matches almost identically to Fig 3 in the Sutton Paper, except errors at all $\lambda$ values are consistently lower compare to Sutton's results. This is probably due to the difference in the quality of randomly generated data.
 
 %%%%%%%%%%%%%%%%%%%%%%figure here v
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.6\linewidth]{../results/experiment1.png}
       \caption{Average error on the random walk problem under repeated presentations.}
@@ -201,19 +200,23 @@ The results from the two experiments described above are presented in \textbf{Fi
 
 
 \subsection{Experiment 2} \label{results2}
-
-
-
+Again the shape of the curve generated from experiment 2 shown in \textbf{Fig} \ref{fig:fig4} matches those in Fig 4 from the Sutton Paper: for each $\lambda$, the lowest error is achieved at some $\alpha$ value between 0 and 0.6. $TD(\lambda=1)$ performed worst, while $TD(\lambda=0.3)$ performed best. However the rate of increasing error with increasing $\alpha$ is higher at some $\lambda$ values compared to Fig 4 from the Sutton Paper. Again this is likely due to the quality of some training sequences. Since this result is generated from only one iteration of a training set, and with some high $\alpha$ values, the TD algorithm could diverge, thus giving higher error after being shown the sequences just once.
 
 %%%%%%%%%%%%%%%%%%%%%%figure here v
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.6\linewidth]{../results/experiment2.png}
      \caption{Average error on random walk problem after experiencing 10 sequences.}
   \label{fig:fig4}
 \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%figure here ^
 
-\begin{figure}[h!]
+Experiment 2 is then run again with more $\lambda$ and $\alpha$ values, at each $\lambda$ the lowest error achieved by the best $\alpha$ is plotted against $\lambda$ to show the best result achievable for each of them (\textbf{Fig} \ref{fig:fig5}). This result is also very similar to Fig 5 from the Sutton Paper, with the exception of $\lambda=0.2$ having the lowest error instead of $\lambda=0.3$ from Sutton's result. Again this is due to the differences in training sets, also the error from $\lambda=0.2$ and $\lambda=0.3$ in Sutton's Fig 5 is actually very close.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%figure here v
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.6\linewidth]{../results/experiment3_2.png}
      \caption{Average error at best $\alpha$ value on random walk problem.}
@@ -227,18 +230,24 @@ The results from the two experiments described above are presented in \textbf{Fi
 
 \section{Difficulties} \label{difficulties}
 
-
+   	\begin{itemize}
+     		\item  Experiment 1
+     			\begin{itemize}
+					\item  The TD algorithm is not described very clearly in the paper, while the algorithm described in the lecture needs some modification to conform with the paper
+       				\item  Choosing the right $\alpha$: Since the data is presented repeatedly until convergence, $\alpha$ can be small yet still converge. However if $\alpha$ is too larger, for the algorithm could diverge. A few tests was needed to figure out the proper $\alpha$.
+    			 \end{itemize}
+		     \item  Experiment 2
+    			 \begin{itemize}
+    				   \item  Problem Size: [20, 40, 60, 80, 100, 140, 160, 180, 200]
+       				   \item Cooling Rate: [0.15, 0.35, 0.55, 0.75, 0.95]
+     			 \end{itemize}
+	\end{itemize}
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%figure here v
 %%%%%%%%%%%%%%%%%%%%%%figure here ^
-
-
-
-
-
 
 
 \section{Appendix} \label{appendix}
