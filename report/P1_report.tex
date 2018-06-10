@@ -57,7 +57,7 @@
 
 
 \begin{abstract}
-This report replicates the experiments generating Fig 3, 4, and 5 from \textit{Learning to Predict by the Methods of Temporal Differences} by Sutton, RS (referred to as the "Sutton Paper" in this report). Code used to run experiments described in this report is hosted here: \burl{https://github.gatech.edu/rchen350/cs7642summer2018p1}, which is also linked in the header as required
+This report replicates the experiments generating Fig 3, 4, and 5 from \textit{Learning to Predict by the Methods of Temporal Differences}\cite{SuttonLearningPredictMethods1988} by Sutton, RS (referred to as the "Sutton Paper" in this report). Code used to run experiments described in this report is hosted here: \burl{https://github.gatech.edu/rchen350/cs7642summer2018p1}, which is also linked in the header as required
 \end{abstract}
 
 \section{Problem: Random Walk} \label{problem}
@@ -105,7 +105,7 @@ Here we replicate 2 experiments performed in the Sutton Paper. These experiments
 
 
 \subsection{Experiment 1} \label{experiment1}
-The first experiments iterate through all 10 sequences from a training set repeatedly until convergence. $\delta \omega_t$ accumulated over the steps within the sequence, and through all 10 sequences within a training set, $\omega$ is updated after one full iteration of the entire training set. Here the learning rate $\alpha$ is set to be 0.01 in all cases.\par
+The first experiments iterate through all 10 sequences from a training set repeatedly until convergence. $\delta \omega_t$ accumulated over the steps within the sequence, and through all 10 sequences within a training set, $\omega$ is updated after one full iteration of the entire training set. Multiple $\alpha$ values are tested, mostly the algorithm converges for $\alpha<0.1$, and always converge to the same values when it does. Here the learning rate $\alpha$ is set to be 0.01 in all cases.\par
 \noindent
 The general algorithm is shown below:\par
 
@@ -123,7 +123,7 @@ The general algorithm is shown below:\par
 \STATE current step is $X_k$
 \STATE $P_0=\omega^T X_k$
 \STATE $e=e+X_{k-1}$
-\STATE $\Delta\omega=\delta\omega+\alpha (P_1-P_0)e$
+\STATE $\Delta\omega=\Delta\omega+\alpha (P_1-P_0)e$
 \STATE $P_0=P_1$
 \STATE $e=\lambda e$
 \ENDFOR
@@ -160,7 +160,7 @@ The general algorithm is shown below:\par
 \STATE current step is $X_k$
 \STATE $P_0=\omega^T X_k$
 \STATE $e=e+X_{k-1}$
-\STATE $\Delta\omega=\delta\omega+\alpha (P_1-P_0)e$
+\STATE $\Delta\omega=\Delta\omega+\alpha (P_1-P_0)e$
 \STATE $P_0=P_1$
 \STATE $e=\lambda e$
 \ENDFOR
@@ -233,12 +233,13 @@ Experiment 2 is then run again with more $\lambda$ and $\alpha$ values, at each 
    	\begin{itemize}
      		\item  Experiment 1
      			\begin{itemize}
-					\item  The TD algorithm is not described very clearly in the paper, while the algorithm described in the lecture needs some modification to conform with the paper
-       				\item  Choosing the right $\alpha$: Since the data is presented repeatedly until convergence, $\alpha$ can be small yet still converge. However if $\alpha$ is too larger, for the algorithm could diverge. A few tests was needed to figure out the proper $\alpha$.
+					\item The TD algorithm is not described very clearly in the paper, while the algorithm described in the lecture needs some modification to conform with the paper.
+       				\item Choosing the right $\alpha$: Since the data is presented repeatedly until convergence, $\alpha$ can be small yet still converge. However if $\alpha$ is too larger, for the algorithm could diverge. A few tests was needed to figure out the proper $\alpha$.
+					\item Choosing the right $\epsilon$ as convergence criterion, and determining how $\epsilon$ is calculated. After a few trial, it was eventually decided to calculated as the average of the latest 20 updates toward vector $\omega$, then averaged over the all intermediate states.
     			 \end{itemize}
 		     \item  Experiment 2
     			 \begin{itemize}
-    				   \item  Problem Size: [20, 40, 60, 80, 100, 140, 160, 180, 200]
+    				   \item Figuring out the reason for the slight difference in the plots, as some of the error shoots up faster as $\lambda$ goes up. It turns out it is just due to the quality of the simulated game data.
        				   \item Cooling Rate: [0.15, 0.35, 0.55, 0.75, 0.95]
      			 \end{itemize}
 	\end{itemize}
@@ -250,11 +251,11 @@ Experiment 2 is then run again with more $\lambda$ and $\alpha$ values, at each 
 %%%%%%%%%%%%%%%%%%%%%%figure here ^
 
 
-\section{Appendix} \label{appendix}
-Code used to run experiments described in this report is hosted here: \burl{https://github.gatech.edu/rchen350/cs7642summer2018p1}. 
+%\section{Appendix} \label{appendix}
+%Code used to run experiments described in this report is hosted here: \burl{https://github.gatech.edu/rchen350/cs7642summer2018p1}. 
 
-%\bibliographystyle{unsrt}
-%\bibliography{ref}
+\bibliographystyle{unsrt}
+\bibliography{ref}
 
 \end{document}
 
