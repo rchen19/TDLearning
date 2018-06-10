@@ -238,13 +238,13 @@ if __name__ == '__main__':
 
 
     #experiment 1
-    #run_experiment_1(data_dir=data_dir, results_dir=results_dir)
+    run_experiment_1(data_dir=data_dir, results_dir=results_dir)
     plot_experiment_1(results_dir=results_dir, name="experiment1")
 
     #experiment 2
-    #run_experiment_2(data_dir=data_dir, results_dir=results_dir)
+    run_experiment_2(data_dir=data_dir, results_dir=results_dir)
     plot_experiment_2(results_dir=results_dir, name="experiment2")
 
     #experiment 3
-    #run_experiment_3(data_dir=data_dir, results_dir=results_dir)
+    run_experiment_3(data_dir=data_dir, results_dir=results_dir)
     plot_experiment_3(results_dir=results_dir, name="experiment3_2")
