@@ -9,4 +9,6 @@ The repo contains code to run experiments required for CS 7642 Summer 2018 Proje
 	* `problem`: a chart that illustrates the random walk problem
 	* `report`: report in PDF and LaTex format, and accessory files
 	* `results`: generated results and plots from experiments
+	* `p1.py`: python scritpt containing classes used for this project
+	* `run_p1.py`: experiments for this project
 * Perform experiments by running `python run_p1.py` from terminal.
