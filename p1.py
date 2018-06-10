@@ -138,10 +138,10 @@ class tdLearner_from_data(object):
             self.init_w = np.array([0.]+[init_w]*(num_states-2)+[1.])
         self.w_list = []
         self.rmse = 0
-        self.std = 0
+        self.ste = 0
         self.w = self.init_w.copy()
         self.rmse_list = []
-        self.std_list = []
+        #self.std_list = []
 
 
     def read_data(self, data_dir="data"):
@@ -351,12 +351,12 @@ class tdLearner_from_data(object):
             self.w_list.append(self.w)
             self.rmse_list.append(self.rmse)
         self.rmse = np.mean(self.rmse_list)
-        self.std = np.std(self.rmse_list)
+        self.ste = np.std(self.rmse_list) / np.sqrt(len(self.rmse_list))
 
         #self.findMeanRMSE()
 
     def learn_one_trainset(self, dataset_num=0, verbose=False):
-        #delta_w accumulates through one iteration of a sequence
+        #delta_w accumulates through one iteration of all steps in a sequence
         #w update at the end of one iteration of a sequence
         if verbose: print "running dataset_{}".format(dataset_num)
         w = self.init_w.copy()
@@ -393,7 +393,7 @@ class tdLearner_from_data(object):
             self.w_list.append(self.w)
             self.rmse_list.append(self.rmse)
         self.rmse = np.mean(self.rmse_list)
-        self.std = np.std(self.rmse_list)
+        self.ste = np.std(self.rmse_list) / np.sqrt(len(self.rmse_list))
         if verbose: print "alpha = {}, lamb = {}: rmse = {}".format(self.alpha, self.lamb, self.rmse)
         #self.findMeanRMSE
         #print self.rmse
